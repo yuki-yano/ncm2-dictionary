@@ -16,7 +16,13 @@ function! ncm2_dictionary#on_complete(ctx)
   let l:base = strpart(a:ctx.typed, l:startcol)
 
   if !has_key(s:cache, &filetype)
-    let l:matches = &dictionary !=# '' ? readfile(&dictionary) : []
+    let l:matches = []
+    let l:dictionaries = split(&dictionary, ',')
+
+    for l:dictionary in l:dictionaries
+      let l:matches = l:matches + readfile(l:dictionary)
+    endfor
+
     map(l:matches, "{'word': v:val}")
     let s:cache[&filetype] = l:matches
   endif
