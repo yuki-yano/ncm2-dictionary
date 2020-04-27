@@ -23,7 +23,6 @@ function! ncm2_dictionary#on_complete(ctx)
       let l:matches = l:matches + readfile(l:dictionary)
     endfor
 
-    map(l:matches, "{'word': v:val}")
     let s:cache[&filetype] = l:matches
   endif
 
